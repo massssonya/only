@@ -1,0 +1,77 @@
+.container {
+	max-width: 1440px;
+	max-height: 1080px;
+	height: 100vh;
+	margin: 0 auto;
+	border: 1px solid $primary;
+	position: relative;
+
+	.horizontal-line {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: $primary;
+		transform: translateY(-0.5px);
+		opacity: 0.5;
+	}
+
+	.vertical-line {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		width: 1px;
+		height: 100%;
+		background-color: $primary;
+		transform: translateX(-0.5px);
+		opacity: 0.5;
+	}
+
+	.title {
+		position: relative;
+		margin-top: clamp(59px, 13%, 170px); // отступ от верхнего края
+		margin-left: 20px; // отступ от левого края
+		padding-left: clamp(20px, 5vw, 78px); // отступ от вертикальной линии
+		font-size: clamp(20px, 2.92vw, 56px);
+		font-weight: $font-bold;
+		color: $primary;
+		display: inline-block;
+		width: 120px;
+		line-height: 120%;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -20px; // ← точно на границе контейнера (0 + 1px border + 5px линия + 14px отступ)
+			width: 5px;
+			height: 100%; // ← равна высоте текста
+
+			background: linear-gradient(to bottom, $blue, $pink);
+		}
+	}
+
+	@media (max-width: $mobile) {
+		&::before {
+			display: none;
+		}
+		.container {
+			border: none;
+		}
+		.vertical-line {
+			display: none;
+		}
+		.horizontal-line {
+			width: 90%;
+			left: 5%;
+		}
+
+		.title {
+			&::before {
+				display: none;
+				left: 0;
+			}
+		}
+	}
+}
