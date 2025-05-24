@@ -1,20 +1,104 @@
-.circle {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 336px;
-	height: 330px;
-	border: 1px solid $primary;
-	background-color: transparent;
-	border-radius: 50%;
-	opacity: 0.5;
-	transform: translate(-50%, -50%);
+@use "sass:math";
+
+// Настройки
+$point-size: min(
+	2vw,
+	5px
+);
+$max-points: 6;
+// $rotate: 120deg;
+$point-font-size: 16px;
+
+@mixin point-animate {
+	width: 40px;
+	height: 40px;
+	background: rgba($background-color, $alpha: 1);
+	border: 1px solid rgba($color: $primary, $alpha: 1);
+
+	.point__id {
+		opacity: 1;
+	}
 }
 
-@media (max-width: $mobile) {
+.circle {
+	position: relative;
+	width: clamp(
+		450px,
+		30vw,
+		600px
+	); // Минимум 150px, идеально 30% от ширины экрана, максимум 300px
+	height: clamp(450px, 30vw, 600px); // Круг остаётся кругом (aspect-ratio: 1)
+	border-radius: 50%;
+	border: 1px solid rgba($color: $primary, $alpha: 0.3);
+	margin: 0 auto; // Центрирование
+	background: transparent;
+	transform-origin: center;
+}
+
+.point {
+	position: absolute;
+	width: $point-size;
+	height: $point-size;
+	border-radius: 50%;
+	border: 1px solid rgba($color: $primary, $alpha: 0);
+	background: rgba($primary, $alpha: 1);
+	transform: translate(-50%, -50%);
+	transition: width 0.5s linear, height 0.5s linear, background 0.5s linear,
+		border 0.5s linear;
+	cursor: pointer;
+	font-size: $point-font-size;
+
+	@for $count from 1 through $max-points {
+		.circle[data-points="#{$count}"] & {
+			@for $i from 1 through $count {
+				&:nth-child(#{$i}) {
+					$angle: math.div(360deg, $count) * ($i - 1);
+					left: calc(50% + 50% * #{math.cos($angle)});
+					top: calc(50% + 50% * #{math.sin($angle)});
+				}
+			}
+		}
+	}
+
+	&__id {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-weight: $font-small;
+		color: $primary;
+		background: transparent;
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+
+	&__label {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		padding-left: 10px;
+		transform: translateX(40%) translateY(-50%);
+		background: transparent;
+		font-weight: $font-bold;
+		color: $primary;
+		opacity: 0;
+	}
+
+	// &__label.active {
+	// 	opacity: 1;
+	// }
+}
+
+.point.active {
+	@include point-animate;
+}
+
+.point:hover {
+	@include point-animate;
+}
+
+@media (max-width: 768px) {
 	.circle {
-		width: 100%;
-		height: 100%;
-		border-radius: 0;
+		display: none;
 	}
 }

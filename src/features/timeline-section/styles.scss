@@ -3,7 +3,9 @@
 	max-height: 1080px;
 	height: 100vh;
 	margin: 0 auto;
-	border: 1px solid $primary;
+	// border: 1px solid $primary;
+	border-left: 1px solid rgba($primary, 0.3);
+	border-right: 1px solid rgba($primary, 0.3);
 	position: relative;
 
 	.horizontal-line {
@@ -23,6 +25,7 @@
 		top: 0;
 		width: 1px;
 		height: 100%;
+
 		background-color: $primary;
 		transform: translateX(-0.5px);
 		opacity: 0.5;
@@ -30,10 +33,11 @@
 
 	.title {
 		position: relative;
-		margin-top: clamp(59px, 13%, 170px); // отступ от верхнего края
+		// margin-top: clamp(59px, 13%, 190px); // отступ от верхнего края
+		margin-top: 10rem; // отступ от верхнего края
 		margin-left: 20px; // отступ от левого края
 		padding-left: clamp(20px, 5vw, 78px); // отступ от вертикальной линии
-		font-size: clamp(20px, 2.92vw, 56px);
+		font-size: clamp(20px, 2.92vw, 96px);
 		font-weight: $font-bold;
 		color: $primary;
 		display: inline-block;
@@ -52,26 +56,43 @@
 		}
 	}
 
-	@media (max-width: $mobile) {
+	.timeline {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		// max-width: 600px;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+	}
+}
+
+@media (max-width: $mobile) {
+	.container {
+		border-left: none;
+		border-right: none;
 		&::before {
 			display: none;
 		}
-		.container {
-			border: none;
-		}
-		.vertical-line {
-			display: none;
-		}
-		.horizontal-line {
-			width: 90%;
-			left: 5%;
-		}
+	}
 
-		.title {
-			&::before {
-				display: none;
-				left: 0;
-			}
+	.vertical-line {
+		display: none;
+	}
+	.horizontal-line {
+		width: 90%;
+		left: 5%;
+	}
+
+	.title {
+		&::before {
+			display: none;
+			left: 0;
 		}
 	}
 }
