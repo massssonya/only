@@ -1,13 +1,9 @@
 @use "sass:math";
 
-// Настройки
-$point-size: min(
-	2vw,
-	5px
-);
+$point-size: min(2vw, 5px);
 $max-points: 6;
-// $rotate: 120deg;
 $point-font-size: 16px;
+$circle-size: clamp(300px, 50vmin, 600px);
 
 @mixin point-animate {
 	width: 40px;
@@ -22,12 +18,10 @@ $point-font-size: 16px;
 
 .circle {
 	position: relative;
-	width: clamp(
-		450px,
-		30vw,
-		600px
-	); // Минимум 150px, идеально 30% от ширины экрана, максимум 300px
-	height: clamp(450px, 30vw, 600px); // Круг остаётся кругом (aspect-ratio: 1)
+
+	width: $circle-size;
+	height: auto;
+	aspect-ratio: 1/1;
 	border-radius: 50%;
 	border: 1px solid rgba($color: $primary, $alpha: 0.3);
 	margin: 0 auto; // Центрирование
@@ -82,6 +76,7 @@ $point-font-size: 16px;
 		font-weight: $font-bold;
 		color: $primary;
 		opacity: 0;
+		font-size: clamp(10px, 1.2vw, 24px);
 	}
 
 	// &__label.active {

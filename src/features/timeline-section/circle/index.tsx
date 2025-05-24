@@ -1,20 +1,13 @@
-import {
-	memo,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState
-} from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./styles.scss";
 import { useAnimationTimeline } from "../model/animation-context";
 
-export const Circle = ({
+export default function Circle({
 	blocks
 }: {
 	blocks: { id: string; title: string }[];
-}) => {
+}) {
 	const isFirstRender = useRef(true);
 	const { timeline, activeBlockId, setActiveBlockId } = useAnimationTimeline();
 	const prevActiveIdRef = useRef<string>(activeBlockId);
@@ -121,7 +114,7 @@ export const Circle = ({
 			))}
 		</div>
 	);
-};
+}
 
 const CircleItem = ({
 	id,

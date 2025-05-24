@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
 	mode: "development",
@@ -65,6 +66,10 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template: "./index.html"
+		}),
+		new BundleAnalyzerPlugin({
+			analyzerMode: "server", // или 'static' для генерации HTML-файла
+			openAnalyzer: true // Автоматически открывать в браузере
 		})
 	]
 };

@@ -1,18 +1,13 @@
 import "./styles.scss";
-import { Circle } from "./circle";
 import { AnimationProvider } from "./model/animation-context";
+import { useDevice } from "../../shared/contexts/device-context";
+import { lazy, Suspense } from "react";
+import { BLOCKS } from "../../shared/mocks/data";
 
-const BLOCKS = [
-	{ id: "1", title: "Музыка" },
-	{ id: "2", title: "Кино" },
-	{ id: "3", title: "Наука" },
-	{ id: "4", title: "Спорт" },
-	{ id: "5", title: "Культура" },
-	{ id: "6", title: "Технологии" }
-];
+const Circle = lazy(() => import("./circle"));
 
 export const LayoutTimelineSection = ({ title }: { title: string }) => {
-
+	const { isDesktop } = useDevice();
 	return (
 		<AnimationProvider>
 			<div className="container">
@@ -20,8 +15,11 @@ export const LayoutTimelineSection = ({ title }: { title: string }) => {
 				<div className="vertical-line"></div>
 				<h1 className="title">{title}</h1>
 				<div className="timeline">
-					<Circle blocks={BLOCKS} />
-					{/* другие элементы */}
+					{isDesktop && (
+						<Suspense fallback={null}>
+							<Circle blocks={BLOCKS} />
+						</Suspense>
+					)}
 				</div>
 			</div>
 		</AnimationProvider>
