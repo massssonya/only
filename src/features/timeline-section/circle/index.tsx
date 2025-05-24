@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { gsap } from "gsap";
 import "./styles.scss";
 import { useAnimationTimeline } from "../model/animation-context";
+import { useCircle } from "./model/use-circle";
 
 export default function Circle({
 	blocks
@@ -10,26 +10,16 @@ export default function Circle({
 }) {
 	const isFirstRender = useRef(true);
 	const { timeline, activeBlockId, setActiveBlockId } = useAnimationTimeline();
-	const prevActiveIdRef = useRef<string>(activeBlockId);
-	const rotationRef = useRef<number>(0);
-	const countBlock = blocks.length;
 
-	const angleStep = 360 / countBlock;
-	const desiredOffset = -angleStep; // например, 60° при 6 элементах — один шаг от 0, т.е. верх-право
+	const { handleClick, initializeRotation, animateCircle } = useCircle({
+		blocks,
+		activeBlockId,
+		setActiveBlockId,
+		timeline
+	});
 
 	useEffect(() => {
-		const currentIndex = blocks.findIndex((b) => b.id === activeBlockId);
-		const initialRotation = desiredOffset - currentIndex * angleStep;
-		const circle = document.querySelector(".circle");
-
-		rotationRef.current = initialRotation;
-
-		if (circle) {
-			gsap.set(".circle", { rotate: initialRotation });
-			gsap.set(".point", { rotate: -initialRotation });
-			gsap.set(".point__label", { opacity: 0 });
-			gsap.set(".point__label.active", { opacity: 1 });
-		}
+		initializeRotation();
 	}, []);
 
 	useLayoutEffect(() => {
@@ -37,72 +27,11 @@ export default function Circle({
 			isFirstRender.current = false;
 			return;
 		}
-		if (!timeline) return;
-
-		const prevIndex = blocks.findIndex((b) => b.id === prevActiveIdRef.current);
-		const currentIndex = blocks.findIndex((b) => b.id === activeBlockId);
-
-		if (prevIndex === -1 || currentIndex === -1) return;
-
-		const rotationDelta = (currentIndex - prevIndex) * angleStep;
-		rotationRef.current -= rotationDelta;
-
-		timeline
-			.clear()
-			.to(".circle", {
-				rotate: rotationRef.current,
-				duration: 1,
-				ease: "power2.inOut"
-			})
-			.to(
-				".point",
-				{
-					rotate: -rotationRef.current,
-					duration: 1,
-					ease: "power2.inOut"
-				},
-				"<"
-			)
-			.to(
-				".point__label:not(.active)",
-				{
-					opacity: 0,
-					duration: 0.4,
-					ease: "ease"
-				},
-				"<"
-			)
-			.to(
-				".point__label.active",
-				{
-					opacity: 1,
-					duration: 0.4,
-					delay: 1,
-					ease: "power1.inOut"
-				},
-				">"
-			);
-
-		timeline.play();
-		prevActiveIdRef.current = activeBlockId;
+		animateCircle();
 	}, [activeBlockId]);
 
-	const handleClick = (nextId: string) => {
-		const prevId = prevActiveIdRef.current;
-		if (nextId === prevId) return;
-
-		localStorage.setItem("activeId", nextId);
-		setActiveBlockId(nextId);
-		prevActiveIdRef.current = nextId;
-
-		const prevIndex = blocks.findIndex((b) => b.id === prevId);
-		const nextIndex = blocks.findIndex((b) => b.id === nextId);
-		const rotationDelta = (nextIndex - prevIndex) * angleStep;
-		rotationRef.current -= rotationDelta;
-	};
-
 	return (
-		<div className="circle" data-points={countBlock}>
+		<div className="circle" data-points={blocks.length}>
 			{blocks.map((block, i) => (
 				<CircleItem
 					key={i}
