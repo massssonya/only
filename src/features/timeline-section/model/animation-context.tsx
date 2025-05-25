@@ -1,5 +1,5 @@
 import { createContext, useContext, useRef, useState } from "react";
-import gsap from "gsap";
+import { gsap } from "gsap";
 
 interface AnimationContextProps {
 	timeline: gsap.core.Timeline;
@@ -7,7 +7,9 @@ interface AnimationContextProps {
 	setActiveBlockId: (id: string) => void;
 }
 
-const AnimationContext = createContext<AnimationContextProps>({} as AnimationContextProps);
+const AnimationContext = createContext<AnimationContextProps>(
+	{} as AnimationContextProps
+);
 
 export const AnimationProvider = ({
 	children
@@ -18,7 +20,6 @@ export const AnimationProvider = ({
 	const [activeBlockId, setActiveBlockId] = useState<string>(
 		() => localStorage.getItem("activeId") ?? "1"
 	);
-
 	return (
 		<AnimationContext.Provider
 			value={{
