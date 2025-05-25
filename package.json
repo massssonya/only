@@ -8,7 +8,8 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "analyze": "webpack --mode production --env analyze=true",
-	"build:analyze": "npm run build && npm run analyze"
+	"build:analyze": "npm run build && npm run analyze",
+	"preinstall": "npm install -D webpack-cli"
   },
   "keywords": [],
   "author": "",

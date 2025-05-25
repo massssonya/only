@@ -8,7 +8,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 // Функция-обёртка для конфига, чтобы принимать env
 module.exports = (env) => {
   const isDev = env.NODE_ENV === "development";
-  const isAnalyze = env.analyze;
+  const isAnalyze = env.analyze || process.env.NETLIFY !== 'true';
 
   return {
     mode: isDev ? "development" : "production",
