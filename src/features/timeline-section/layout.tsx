@@ -1,8 +1,9 @@
 import "./styles.scss";
-import { AnimationProvider } from "./model/animation-context";
+import { AnimationProvider, useAnimationTimeline } from "./model/animation-context";
 import { useDevice } from "../../shared/contexts/device-context";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useMemo } from "react";
 import { BLOCKS } from "../../shared/mocks/data";
+import { Dates } from "./dates";
 
 const Circle = lazy(() => import("./circle"));
 
@@ -21,7 +22,21 @@ export const LayoutTimelineSection = ({ title }: { title: string }) => {
 						</Suspense>
 					)}
 				</div>
+				<div className="dates-container">
+					<DatesWrapper />
+				</div>
+
 			</div>
 		</AnimationProvider>
 	);
+};
+
+const DatesWrapper = () => {
+	const { activeBlockId } = useAnimationTimeline();
+
+	const block = useMemo(() => {
+		return BLOCKS.find((b) => b.id === activeBlockId);
+	}, [activeBlockId]);
+
+	return <Dates block={block} />;
 };

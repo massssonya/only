@@ -67,12 +67,22 @@
 		justify-content: center;
 		background-color: transparent;
 	}
+
+	.dates-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		background: transparent;
+		pointer-events: none;
+	}
 }
 
 @media (max-width: $mobile) {
 	.container {
 		border-left: none;
 		border-right: none;
+		margin: 0 10px;
 
 		.vertical-line {
 			display: none;
@@ -83,18 +93,24 @@
 		}
 
 		.title {
-			top: 20%;
-			font-size: clamp(
-				34px,
-				3vw,
-				58px
-			); // Увеличиваем относительный размер на мобильных
+			top: clamp(100px, 15vh, 120px);;
+			font-size: clamp(16px, 7vw, 32px);
 			margin-left: 0;
 			padding-left: clamp(5px, 4vw, 40px);
 			&::before {
 				display: none;
 				left: 0;
 			}
+		}
+		.dates-container {
+			position: absolute;
+			top: calc(
+				20% + (50% - 20%) / 2
+			); // Ровно между title (20%) и центром (50%)
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			width: 100%;
+			padding: 0 5%;
 		}
 	}
 }

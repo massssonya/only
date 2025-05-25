@@ -1,0 +1,35 @@
+.dates {
+	width: 100%;
+	font-size: clamp(140px, 10vw, 320px);
+	font-weight: $font-bold;
+	background: transparent;
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+
+	.date {
+		background: inherit;
+	}
+
+	.left {
+		color: $purple;
+		transform: translateX(-50px);
+	}
+
+	.right {
+		color: $pink;
+		transform: translateX(20px);
+	}
+}
+
+@media (max-width: $mobile) {
+	.dates {
+		font-size: clamp(62px, 10vw, 100px);
+		justify-content: space-between;
+
+		.left,
+		.right {
+			transform: translateX(0);
+		}
+	}
+}
