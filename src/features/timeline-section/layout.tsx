@@ -1,14 +1,22 @@
-import "./styles.scss";
-import { AnimationProvider, useAnimationTimeline } from "./model/animation-context";
+import { lazy, Suspense } from "react";
+
+import { AnimationProvider } from "./model/animation-context";
 import { useDevice } from "../../shared/contexts/device-context";
-import { lazy, Suspense, useMemo } from "react";
-import { BLOCKS } from "../../shared/mocks/data";
-import { Dates } from "./dates";
+import { Block } from "../../shared/mocks/data";
+import { DatesWrapper } from "./components/dates";
+import "./styles.scss";
 
-const Circle = lazy(() => import("./circle"));
+const Circle = lazy(() => import("./components/circle"));
 
-export const LayoutTimelineSection = ({ title }: { title: string }) => {
+export const LayoutTimelineSection = ({
+	title,
+	blocks
+}: {
+	title: string;
+	blocks: Block[];
+}) => {
 	const { isDesktop } = useDevice();
+
 	return (
 		<AnimationProvider>
 			<div className="container">
@@ -18,25 +26,15 @@ export const LayoutTimelineSection = ({ title }: { title: string }) => {
 				<div className="timeline">
 					{isDesktop && (
 						<Suspense fallback={null}>
-							<Circle blocks={BLOCKS} />
+							<Circle blocks={blocks} />
 						</Suspense>
 					)}
 				</div>
 				<div className="dates-container">
-					<DatesWrapper />
+					<DatesWrapper blocks={blocks} />
 				</div>
 
 			</div>
 		</AnimationProvider>
 	);
-};
-
-const DatesWrapper = () => {
-	const { activeBlockId } = useAnimationTimeline();
-
-	const block = useMemo(() => {
-		return BLOCKS.find((b) => b.id === activeBlockId);
-	}, [activeBlockId]);
-
-	return <Dates block={block} />;
 };

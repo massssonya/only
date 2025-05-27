@@ -35,8 +35,8 @@
 		top: 25%;
 		left: 0;
 		transform: translateY(-50%);
-		margin-left: 20px; // отступ от левого края
-		padding-left: clamp(5px, 5vh, 78px); // отступ от вертикальной линии
+		margin-left: 20px;
+		padding-left: clamp(5px, 5vh, 78px);
 		font-size: clamp(54px, 2vw, 64px);
 		font-weight: $font-bold;
 		color: $primary;
@@ -48,9 +48,9 @@
 			content: "";
 			position: absolute;
 			top: 0;
-			left: -20px; // ← точно на границе контейнера (0 + 1px border + 5px линия + 14px отступ)
+			left: -20px;
 			width: 5px;
-			height: 100%; // ← равна высоте текста
+			height: 100%;
 
 			background: linear-gradient(to bottom, $blue, $pink);
 		}
@@ -66,6 +66,7 @@
 		align-items: center;
 		justify-content: center;
 		background-color: transparent;
+		z-index: 20;
 	}
 
 	.dates-container {
@@ -75,6 +76,22 @@
 		transform: translateX(-50%) translateY(-50%);
 		background: transparent;
 		pointer-events: none;
+	}
+
+	.footer {
+		position: absolute;
+		padding: 40px 60px;
+		bottom: 0;
+		background: transparent;
+
+		height: 290px;
+		width: 100%;
+
+		border: 1px solid black;
+
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 	}
 }
 
@@ -93,7 +110,7 @@
 		}
 
 		.title {
-			top: clamp(100px, 15vh, 120px);;
+			top: clamp(100px, 15vh, 120px);
 			font-size: clamp(16px, 7vw, 32px);
 			margin-left: 0;
 			padding-left: clamp(5px, 4vw, 40px);

@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import "./styles.scss";
-import { useAnimationTimeline } from "../model/animation-context";
+import { useAnimationTimeline } from "../../model/animation-context";
 import { useCircle } from "./model/use-circle";
 
 export default function Circle({
@@ -8,6 +8,9 @@ export default function Circle({
 }: {
 	blocks: { id: string; title: string }[];
 }) {
+	const circleRef = useRef<HTMLDivElement>(null);
+
+
 	const isFirstRender = useRef(true);
 	const { timeline, activeBlockId, setActiveBlockId } = useAnimationTimeline();
 
@@ -15,7 +18,8 @@ export default function Circle({
 		blocks,
 		activeBlockId,
 		setActiveBlockId,
-		timeline
+		timeline,
+		circleRef
 	});
 
 	useEffect(() => {
@@ -31,7 +35,7 @@ export default function Circle({
 	}, [activeBlockId]);
 
 	return (
-		<div className="circle" data-points={blocks.length}>
+		<div ref={circleRef} className="circle" data-points={blocks.length}>
 			{blocks.map((block, i) => (
 				<CircleItem
 					key={i}

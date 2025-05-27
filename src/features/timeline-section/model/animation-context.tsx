@@ -17,9 +17,7 @@ export const AnimationProvider = ({
 	children: React.ReactNode;
 }) => {
 	const timelineRef = useRef(gsap.timeline({ paused: true }));
-	const [activeBlockId, setActiveBlockId] = useState<string>(
-		() => localStorage.getItem("activeId") ?? "1"
-	);
+	const [activeBlockId, setActiveBlockId] = useState<string>("1");
 	return (
 		<AnimationContext.Provider
 			value={{

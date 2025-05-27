@@ -79,9 +79,9 @@ $circle-size: clamp(300px, 50vmin, 600px);
 		font-size: clamp(10px, 1.2vw, 24px);
 	}
 
-	// &__label.active {
-	// 	opacity: 1;
-	// }
+	&__label.active {
+		opacity: 1;
+	}
 }
 
 .point.active {
