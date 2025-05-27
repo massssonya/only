@@ -39,7 +39,7 @@ export default function Circle({
 			{blocks.map((block, i) => (
 				<CircleItem
 					key={i}
-					id={block.id}
+					id={(i+1).toString()}
 					title={block.title}
 					isActive={block.id === activeBlockId}
 					onClick={() => handleClick(block.id)}

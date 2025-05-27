@@ -5,6 +5,7 @@ import { useDevice } from "../../shared/contexts/device-context";
 import { Block } from "../../shared/mocks/data";
 import { DatesWrapper } from "./components/dates";
 import "./styles.scss";
+import { CircleSwitch } from "./components/circle-switch";
 
 const Circle = lazy(() => import("./components/circle"));
 
@@ -24,16 +25,16 @@ export const LayoutTimelineSection = ({
 				<div className="vertical-line"></div>
 				<h1 className="title">{title}</h1>
 				<div className="timeline">
-					{isDesktop && (
-						<Suspense fallback={null}>
-							<Circle blocks={blocks} />
-						</Suspense>
-					)}
+					<Suspense fallback={null}>
+						{isDesktop ? <Circle blocks={blocks} /> : null}
+					</Suspense>
 				</div>
 				<div className="dates-container">
 					<DatesWrapper blocks={blocks} />
 				</div>
-
+				<div className="footer">
+					<CircleSwitch blocks={blocks} />
+				</div>
 			</div>
 		</AnimationProvider>
 	);

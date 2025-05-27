@@ -18,6 +18,7 @@ export const AnimationProvider = ({
 }) => {
 	const timelineRef = useRef(gsap.timeline({ paused: true }));
 	const [activeBlockId, setActiveBlockId] = useState<string>("1");
+
 	return (
 		<AnimationContext.Provider
 			value={{
