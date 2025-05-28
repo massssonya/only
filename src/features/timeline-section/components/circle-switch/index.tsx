@@ -9,14 +9,16 @@ export function CircleSwitch({ blocks }: { blocks: Block[] }) {
 	const currentBlockNumber =
 		blocks.findIndex((block) => block.id === activeBlockId) + 1;
 	const totalBlocks = blocks.length;
+	const isPrevDisabled = currentBlockNumber <= 1;
+	const isNextDisabled = currentBlockNumber >= totalBlocks;
 
 	const clickAddCount = () => {
-		if (currentBlockNumber < totalBlocks) {
+		if (!isNextDisabled) {
 			setActiveBlockId(blocks[currentBlockNumber].id);
 		}
 	};
 	const clickSubtrictCount = () => {
-		if (currentBlockNumber > 1) {
+		if (!isPrevDisabled) {
 			setActiveBlockId(blocks[currentBlockNumber - 2].id);
 		}
 	};
@@ -30,13 +32,13 @@ export function CircleSwitch({ blocks }: { blocks: Block[] }) {
 					variant="outline"
 					icon={<Arrow />}
 					direction="left"
-					// disabled={isPrevDisabled}
+					disabled={isPrevDisabled}
 					onClick={clickSubtrictCount}
 				/>
 				<Button
 					variant="outline"
 					icon={<Arrow />}
-					// disabled={isNextDisabled}
+					disabled={isNextDisabled}
 					onClick={clickAddCount}
 				/>
 			</div>

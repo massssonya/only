@@ -6,13 +6,14 @@
 	pointer-events: none;
 	display: flex;
 	align-items: center;
+	transform: translateY(-2rem);
 
 	.date {
 		background: inherit;
 	}
 
 	.left {
-		color: $purple;
+		color: $blue;
 		transform: translateX(-50px);
 	}
 

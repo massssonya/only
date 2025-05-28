@@ -27,6 +27,7 @@ $circle-size: clamp(300px, 50vmin, 600px);
 	margin: 0 auto; // Центрирование
 	background: transparent;
 	transform-origin: center;
+	transform: translateY(-2em);
 }
 
 .point {

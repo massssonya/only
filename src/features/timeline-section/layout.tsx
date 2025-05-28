@@ -6,6 +6,7 @@ import { Block } from "../../shared/mocks/data";
 import { DatesWrapper } from "./components/dates";
 import "./styles.scss";
 import { CircleSwitch } from "./components/circle-switch";
+import { Slider } from "./components/slider";
 
 const Circle = lazy(() => import("./components/circle"));
 
@@ -32,9 +33,12 @@ export const LayoutTimelineSection = ({
 				<div className="dates-container">
 					<DatesWrapper blocks={blocks} />
 				</div>
-				<div className="footer">
-					<CircleSwitch blocks={blocks} />
-				</div>
+				<footer className="footer">
+					<div className="footer-container">
+						<CircleSwitch blocks={blocks} />
+						<Slider blocks={blocks} />
+					</div>
+				</footer>
 			</div>
 		</AnimationProvider>
 	);

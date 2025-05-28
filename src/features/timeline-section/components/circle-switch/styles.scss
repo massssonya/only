@@ -1,16 +1,17 @@
 .circle-switch {
+	position: absolute;
+	left: 20px;
 	background: transparent;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 
-	margin-left: 20px;
 	padding-left: clamp(5px, 5vh, 78px);
 
 	span {
 		background: transparent;
 		font-weight: 400;
-		font-size: 20px;
+		font-size: 16px;
 		line-height: 100%;
 		letter-spacing: 0%;
 	}
