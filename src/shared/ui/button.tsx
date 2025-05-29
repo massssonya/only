@@ -30,8 +30,8 @@ const StyledButton = styled.button<{
 	transition: background-color 0.3s ease;
 	box-shadow: 0px 0px 15px 0px #3877ee1a;
 
-	width: ${({ width }) => width};
-	height: ${({ height }) => height};
+	width: ${({ width }) => typeof(width)==="number" ? (width?.toString()+"px") : width};
+	height: ${({ height }) => typeof(height)==="number" ? (height?.toString()+"px") : height};
 	${({ variant }) =>
 		variant === "primary" &&
 		css`

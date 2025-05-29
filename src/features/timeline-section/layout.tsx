@@ -5,8 +5,7 @@ import { useDevice } from "../../shared/contexts/device-context";
 import { Block } from "../../shared/mocks/data";
 import { DatesWrapper } from "./components/dates";
 import "./styles.scss";
-import { CircleSwitch } from "./components/circle-switch";
-import { Slider } from "./components/slider";
+import { Footer } from "./components/footer";
 
 const Circle = lazy(() => import("./components/circle"));
 
@@ -34,11 +33,9 @@ export const LayoutTimelineSection = ({
 					<DatesWrapper blocks={blocks} />
 				</div>
 				<footer className="footer">
-					<div className="footer-container">
-						<CircleSwitch blocks={blocks} />
-						<Slider blocks={blocks} />
-					</div>
+					<Footer blocks={blocks} />
 				</footer>
+
 			</div>
 		</AnimationProvider>
 	);

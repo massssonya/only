@@ -1,12 +1,9 @@
 .circle-switch {
-	position: absolute;
-	left: 20px;
 	background: transparent;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 
-	padding-left: clamp(5px, 5vh, 78px);
 
 	span {
 		background: transparent;
@@ -20,5 +17,19 @@
 		background: transparent;
 		display: flex;
 		gap: 16px;
+	}
+}
+
+@media (max-width: $mobile){
+	.circle-switch{
+		gap: 10px;
+
+		span{
+			font-size: 14px;
+		}
+
+		.circle-switch-buttons{
+			gap: 10px;
+		}
 	}
 }

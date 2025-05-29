@@ -3,8 +3,10 @@ import { Arrow } from "../../../../shared/assets/icons";
 import { Button } from "../../../../shared/ui/button";
 import { useAnimationTimeline } from "../../model/animation-context";
 import { Block } from "../../../../shared/mocks/data";
+import { useDevice } from "../../../../shared/contexts/device-context";
 
 export function CircleSwitch({ blocks }: { blocks: Block[] }) {
+	const {isDesktop} = useDevice()
 	const { activeBlockId, setActiveBlockId } = useAnimationTimeline();
 	const currentBlockNumber =
 		blocks.findIndex((block) => block.id === activeBlockId) + 1;
@@ -34,12 +36,16 @@ export function CircleSwitch({ blocks }: { blocks: Block[] }) {
 					direction="left"
 					disabled={isPrevDisabled}
 					onClick={clickSubtrictCount}
+					width={isDesktop ? 40 : 25}
+					height={isDesktop ? 40 : 25}
 				/>
 				<Button
 					variant="outline"
 					icon={<Arrow />}
 					disabled={isNextDisabled}
 					onClick={clickAddCount}
+					width={isDesktop ? 40 : 25}
+					height={isDesktop ? 40 : 25}
 				/>
 			</div>
 		</div>
