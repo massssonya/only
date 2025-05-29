@@ -5,7 +5,9 @@
     grid-template-rows: 1fr 2fr;
     grid-row-gap: 60px;
     background: transparent;
-
+	.empty{
+            background: transparent;
+        }
     .switch{
         display: flex;
         align-items: end;

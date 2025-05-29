@@ -8,6 +8,7 @@ import "./styles.scss";
 import { Footer } from "./components/footer";
 
 const Circle = lazy(() => import("./components/circle"));
+const Theme = lazy(() => import("./components/theme"));
 
 export const LayoutTimelineSection = ({
 	title,
@@ -22,20 +23,25 @@ export const LayoutTimelineSection = ({
 		<AnimationProvider>
 			<div className="container">
 				<div className="horizontal-line"></div>
+				<Suspense fallback={null}>
+					<div className="theme">
+						{!isDesktop ? <Theme blocks={blocks} /> : null}
+					</div>
+				</Suspense>
 				<div className="vertical-line"></div>
 				<h1 className="title">{title}</h1>
-				<div className="timeline">
-					<Suspense fallback={null}>
+				<Suspense fallback={null}>
+					<div className="timeline">
 						{isDesktop ? <Circle blocks={blocks} /> : null}
-					</Suspense>
-				</div>
+					</div>
+				</Suspense>
+
 				<div className="dates-container">
 					<DatesWrapper blocks={blocks} />
 				</div>
 				<footer className="footer">
 					<Footer blocks={blocks} />
 				</footer>
-
 			</div>
 		</AnimationProvider>
 	);

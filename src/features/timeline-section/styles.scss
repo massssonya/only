@@ -106,6 +106,14 @@
 			left: 5%;
 		}
 
+		.theme {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-300%);
+			left: 5%;
+			color: $primary;
+		}
+
 		.title {
 			top: clamp(100px, 15vh, 120px);
 			font-size: clamp(16px, 7vw, 32px);
