@@ -11,33 +11,36 @@ import { useSwiperController } from "./model/use-swiper-controller";
 import { useSortedBlockEvents } from "./model/use-sorted-block-events";
 import { useSwiperEffects } from "./model/use-swiper-effects";
 import { getSliderConfig } from "./slider-config";
+import { FadeInOutSwitcher } from "../../../../shared/ui/fade-in-out-switcher";
 
 
 export const Slider = memo(({ blocks }: { blocks: Block[] }) => {
 	const { isMobile } = useDevice();
 	const { activeBlockId } = useAnimationTimeline();
 
-	const {handleSwiper, swiperRef} = useSwiperController()
-	const {countEvents, sortData} = useSortedBlockEvents(blocks)
+	const { handleSwiper, swiperRef } = useSwiperController()
+	const { countEvents, sortData } = useSortedBlockEvents(blocks)
 	useSwiperEffects(swiperRef, countEvents, activeBlockId)
 
 	return (
-		<div className="swiper-container">
-			<Swiper
-				onSwiper={handleSwiper}
-				className="swiper"
-				{...getSliderConfig(countEvents, isMobile)}
-			>
-				{sortData.map((slide) => (
-					<SwiperSlide className="swiper-slide" key={slide.id}>
-						<div className="slide">
-							<p className="slide-title">{slide.year}</p>
-							<p className="slide-text">{slide.text}</p>
-						</div>
-					</SwiperSlide>
-				))}
-				<SwiperSlide className="swiper-slide ghost-slide" />
-			</Swiper>
-		</div>
+		<FadeInOutSwitcher uniqueKey={activeBlockId}>
+			<div className="swiper-container">
+				<Swiper
+					onSwiper={handleSwiper}
+					className="swiper"
+					{...getSliderConfig(countEvents, isMobile)}
+				>
+					{sortData.map((slide) => (
+						<SwiperSlide className="swiper-slide" key={slide.id}>
+							<div className="slide">
+								<p className="slide-title">{slide.year}</p>
+								<p className="slide-text">{slide.text}</p>
+							</div>
+						</SwiperSlide>
+					))}
+					<SwiperSlide className="swiper-slide ghost-slide" />
+				</Swiper>
+			</div>
+		</FadeInOutSwitcher>
 	);
 })
