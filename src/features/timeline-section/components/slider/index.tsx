@@ -11,19 +11,19 @@ import { useSwiperController } from "./model/use-swiper-controller";
 import { useSortedBlockEvents } from "./model/use-sorted-block-events";
 import { useSwiperEffects } from "./model/use-swiper-effects";
 import { getSliderConfig } from "./slider-config";
-import { FadeInOutSwitcher } from "../../../../shared/ui/fade-in-out-switcher";
+import { FadeInOut } from "../../../../shared/ui/effects/fade-in-out";
 
 
 export const Slider = memo(({ blocks }: { blocks: Block[] }) => {
 	const { isMobile } = useDevice();
-	const { activeBlockId } = useAnimationTimeline();
+	const { activeBlockId, globalTimeline } = useAnimationTimeline();
 
 	const { handleSwiper, swiperRef } = useSwiperController()
 	const { countEvents, sortData } = useSortedBlockEvents(blocks)
 	useSwiperEffects(swiperRef, countEvents, activeBlockId)
 
 	return (
-		<FadeInOutSwitcher uniqueKey={activeBlockId}>
+		<FadeInOut globalTimeline={globalTimeline} label="swiper">
 			<div className="swiper-container">
 				<Swiper
 					onSwiper={handleSwiper}
@@ -41,6 +41,6 @@ export const Slider = memo(({ blocks }: { blocks: Block[] }) => {
 					<SwiperSlide className="swiper-slide ghost-slide" />
 				</Swiper>
 			</div>
-		</FadeInOutSwitcher>
+		</FadeInOut>
 	);
 })

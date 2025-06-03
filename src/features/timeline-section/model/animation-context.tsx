@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 
 interface AnimationContextProps {
 	timeline: gsap.core.Timeline;
+	globalTimeline: gsap.core.Timeline;
 	activeBlockId: string;
 	setActiveBlockId: (id: string) => void;
 }
@@ -16,6 +17,7 @@ export const AnimationProvider = ({
 }: {
 	children: React.ReactNode;
 }) => {
+	const globalTimelineRef = useRef(gsap.timeline({ paused: true }));
 	const timelineRef = useRef(gsap.timeline({ paused: true }));
 	const [activeBlockId, setActiveBlockId] = useState<string>("1");
 
@@ -23,6 +25,7 @@ export const AnimationProvider = ({
 		<AnimationContext.Provider
 			value={{
 				timeline: timelineRef.current,
+				globalTimeline: globalTimelineRef.current,
 				activeBlockId,
 				setActiveBlockId
 			}}
