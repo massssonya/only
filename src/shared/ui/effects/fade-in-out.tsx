@@ -41,7 +41,7 @@ export function FadeInOut({
     }, [children]);
   
     return (
-      <div ref={containerRef} style={{ opacity: 0 }}>
+      <div ref={containerRef} style={{ opacity: 0, background: "transparent" }}>
         {displayedChildren}
       </div>
     )
